@@ -30,7 +30,7 @@ namespace Vansah
 
 
         //--------------------------- INFORM YOUR UNIQUE VANSAH TOKEN HERE ---------------------------------------------------
-        private static string VANSAH_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjb20udmFuc2FoLmppcmEudmFuc2FoLXBsdWdpbiIsImlhdCI6MTY2ODQ4MzY2NCwic3ViIjoiNjE5ZGMzNmJkNTk4NmMwMDZhZDE3YjVlIiwiZXhwIjoyNjY4NDgzNjY0LCJhdWQiOlsiY2Q3YTJhZmQtYzgyYy0zYzY2LTgxMDItZWZmOGIwN2E5MjExIl0sInR5cGUiOiJjb25uZWN0In0.TWylCkTRCmmTWoZKzyIBuEG39b1bGX1mQMhzJJd2bmQ";
+        private static string VANSAH_TOKEN = "Your Vansah Token Here";
 
 
         //--------------------------- INFORM IF YOU WANT TO UPDATE VANSAH HERE -----------------------------------------------
@@ -56,7 +56,7 @@ namespace Vansah
         private string FILE;
         private int testRows;
         private HttpClient httpClient;
-    
+
 
 
         //------------------------ VANSAH INSTANCE CREATION---------------------------------------------------------------------------------
@@ -65,7 +65,7 @@ namespace Vansah
         {
             TESTFOLDERS_ID = TESTFOLDERS;
             JIRA_ISSUE_KEY = jiraIssue;
-        
+
         }
         //Default Constructor
         public VansahNode()
@@ -79,7 +79,7 @@ namespace Vansah
         //For JIRA ISSUES
         public void AddTestRunFromJiraIssue(string testcase)
         {
-       
+
             CASE_KEY = testcase;
             SEND_SCREENSHOT = false;
 
@@ -88,101 +88,101 @@ namespace Vansah
         //For TestFolders
         public void AddTestRunFromTestFolder(string testcase)
         {
-            
+
             CASE_KEY = testcase;
-		    SEND_SCREENSHOT = false;
-		    ConnectToVansahRest("AddTestRunFromTestFolder", null);
+            SEND_SCREENSHOT = false;
+            ConnectToVansahRest("AddTestRunFromTestFolder", null);
         }
-    //------------------------------------------------------------------------------------------------------------------------
+        //------------------------------------------------------------------------------------------------------------------------
 
 
 
-    //-------------------------- VANSAH Add TEST LOG (LOG IDENTIFIER CREATION ------------------------------------------------
-    //POST prod.vansahnode.app/api/v1/logs --> https://apidoc.vansah.com/#8cad9d9e-003c-43a2-b29e-26ec2acf67a7
-    //Adds a new test log for the test case_key. Requires "test_run_identifier" from Add_test_run
+        //-------------------------- VANSAH Add TEST LOG (LOG IDENTIFIER CREATION ------------------------------------------------
+        //POST prod.vansahnode.app/api/v1/logs --> https://apidoc.vansah.com/#8cad9d9e-003c-43a2-b29e-26ec2acf67a7
+        //Adds a new test log for the test case_key. Requires "test_run_identifier" from Add_test_run
 
-    public void AddTestLog(int result, string comment, int testStepRow, bool sendScreenShot, IWebDriver driver)
-    {
+        public void AddTestLog(int result, string comment, int testStepRow, bool sendScreenShot, IWebDriver driver)
+        {
 
-		//0 = N/A, 1 = FAIL, 2 = PASS, 3 = Not tested
-		RESULT_KEY = result;
-		COMMENT = comment;
-		STEP_ORDER = testStepRow;
-		SEND_SCREENSHOT = sendScreenShot;
-        ConnectToVansahRest("AddTestLog", driver);
-    }
-    //-------------------------------------------------------------------------------------------------------------------------
-
-
-
-    //------------------------- VANSAH Add QUICK TEST --------------------------------------------------------------------------
-    //POST prod.vansahnode.app/api/v1/run --> https://apidoc.vansah.com/#0ebf5b8f-edc5-4adb-8333-aca93059f31c
-    //creates a new test run and a new test log for the test case_key. By calling this endpoint, 
-    //you will create a new log entry in Vansah with the respective overal Result. 
-    //(0 = N/A, 1= FAIL, 2= PASS, 3 = Not Tested). Add_Quick_Test is useful for test cases in which there are no steps in the test script, 
-    //where only the overall result is important.
-
-    //For JIRA ISSUES
-    public void AddQuickTestFromJiraIssue(string testcase, int result)
-    {
-
-		//0 = N/A, 1= FAIL, 2= PASS, 3 = Not tested
-		CASE_KEY = testcase;
-		RESULT_KEY = result;
-
-        ConnectToVansahRest("AddQuickTestFromJiraIssue", null);
-    }
-    //For TestFolders
-    public void AddQuickTestFromTestFolders(string testcase, int result)
-    {
-
-		//0 = N/A, 1= FAIL, 2= PASS, 3 = Not tested
-		CASE_KEY = testcase;
-		RESULT_KEY = result;
-	
-        ConnectToVansahRest("AddQuickTestFromTestFolders", null);
-    }
-
-    //------------------------------------------------------------------------------------------------------------------------------
+            //0 = N/A, 1 = FAIL, 2 = PASS, 3 = Not tested
+            RESULT_KEY = result;
+            COMMENT = comment;
+            STEP_ORDER = testStepRow;
+            SEND_SCREENSHOT = sendScreenShot;
+            ConnectToVansahRest("AddTestLog", driver);
+        }
+        //-------------------------------------------------------------------------------------------------------------------------
 
 
-    //------------------------------------------ VANSAH REMOVE TEST RUN *********************************************
-    //POST prod.vansahnode.app/api/v1/run/{{test_run_identifier}} --> https://apidoc.vansah.com/#2f004698-34e9-4097-89ab-759a8d86fca8
-    //will delete the test log created from Add_test_run or Add_quick_test
 
-    public void RemoveTestRun()
-    {
-        ConnectToVansahRest("RemoveTestRun", null);
-    }
-    //------------------------------------------------------------------------------------------------------------------------------
+        //------------------------- VANSAH Add QUICK TEST --------------------------------------------------------------------------
+        //POST prod.vansahnode.app/api/v1/run --> https://apidoc.vansah.com/#0ebf5b8f-edc5-4adb-8333-aca93059f31c
+        //creates a new test run and a new test log for the test case_key. By calling this endpoint, 
+        //you will create a new log entry in Vansah with the respective overal Result. 
+        //(0 = N/A, 1= FAIL, 2= PASS, 3 = Not Tested). Add_Quick_Test is useful for test cases in which there are no steps in the test script, 
+        //where only the overall result is important.
 
-    //------------------------------------------ VANSAH REMOVE TEST LOG *********************************************
-    //POST remove_test_log https://apidoc.vansah.com/#789414f9-43e7-4744-b2ca-1aaf9ee878e5
-    //will delete a test_log_identifier created from Add_test_log or Add_quick_test
+        //For JIRA ISSUES
+        public void AddQuickTestFromJiraIssue(string testcase, int result)
+        {
 
-    public void RemoveTestLog()
-    {
-        ConnectToVansahRest("RemoveTestLog", null);
-    }
-    //------------------------------------------------------------------------------------------------------------------------------
+            //0 = N/A, 1= FAIL, 2= PASS, 3 = Not tested
+            CASE_KEY = testcase;
+            RESULT_KEY = result;
+
+            ConnectToVansahRest("AddQuickTestFromJiraIssue", null);
+        }
+        //For TestFolders
+        public void AddQuickTestFromTestFolders(string testcase, int result)
+        {
+
+            //0 = N/A, 1= FAIL, 2= PASS, 3 = Not tested
+            CASE_KEY = testcase;
+            RESULT_KEY = result;
+
+            ConnectToVansahRest("AddQuickTestFromTestFolders", null);
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------------
 
 
-    //------------------------------------------ VANSAH UPDATE TEST LOG ------------------------------------------------------------
-    //POST update_test_log https://apidoc.vansah.com/#ae26f43a-b918-4ec9-8422-20553f880b48
-    //will perform any updates required using the test log identifier which is returned from Add_test_log or Add_quick_test
+        //------------------------------------------ VANSAH REMOVE TEST RUN *********************************************
+        //POST prod.vansahnode.app/api/v1/run/{{test_run_identifier}} --> https://apidoc.vansah.com/#2f004698-34e9-4097-89ab-759a8d86fca8
+        //will delete the test log created from Add_test_run or Add_quick_test
 
-    public void UpdateTestLog(int result, string comment, bool sendScreenShot, IWebDriver driver)
-    {
+        public void RemoveTestRun()
+        {
+            ConnectToVansahRest("RemoveTestRun", null);
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
 
-		//0 = N/A, 1= FAIL, 2= PASS, 3 = Not tested
-		RESULT_KEY = result;
-		COMMENT = comment;
-		SEND_SCREENSHOT = sendScreenShot;
-        ConnectToVansahRest("UpdateTestLog", driver);
-    }
+        //------------------------------------------ VANSAH REMOVE TEST LOG *********************************************
+        //POST remove_test_log https://apidoc.vansah.com/#789414f9-43e7-4744-b2ca-1aaf9ee878e5
+        //will delete a test_log_identifier created from Add_test_log or Add_quick_test
 
-    private void ConnectToVansahRest(string type, IWebDriver driver)
-    {
+        public void RemoveTestLog()
+        {
+            ConnectToVansahRest("RemoveTestLog", null);
+        }
+        //------------------------------------------------------------------------------------------------------------------------------
+
+
+        //------------------------------------------ VANSAH UPDATE TEST LOG ------------------------------------------------------------
+        //POST update_test_log https://apidoc.vansah.com/#ae26f43a-b918-4ec9-8422-20553f880b48
+        //will perform any updates required using the test log identifier which is returned from Add_test_log or Add_quick_test
+
+        public void UpdateTestLog(int result, string comment, bool sendScreenShot, IWebDriver driver)
+        {
+
+            //0 = N/A, 1= FAIL, 2= PASS, 3 = Not tested
+            RESULT_KEY = result;
+            COMMENT = comment;
+            SEND_SCREENSHOT = sendScreenShot;
+            ConnectToVansahRest("UpdateTestLog", driver);
+        }
+
+        private void ConnectToVansahRest(string type, IWebDriver driver)
+        {
 
             if (updateVansah == "1")
             {
@@ -199,7 +199,7 @@ namespace Vansah
                 {
                     Screenshot TakeScreenshot = ((ITakesScreenshot)driver).GetScreenshot();
                     FILE = TakeScreenshot.AsBase64EncodedString;
-                    
+
                 }
                 if (type == "AddTestRunFromJiraIssue")
                 {
@@ -208,15 +208,15 @@ namespace Vansah
                     requestBody.Add("case", TestCase());
                     requestBody.Add("asset", JiraIssueAsset());
                     if (Properties().Count != 0) { requestBody.Add("properties", Properties()); }
-                  
-                  
 
-                  // Console.WriteLine(requestBody);
+
+
+                    // Console.WriteLine(requestBody);
                     httpClient.BaseAddress = new Uri(Add_TEST_RUN);
-                    
+
                     Content = new StringContent(requestBody.ToJsonString(), Encoding.UTF8, "application/json" /* or "application/json" in older versions */);
                     response = httpClient.PostAsync("", Content).Result;
-                  //  Console.WriteLine(response.Content);
+                    //  Console.WriteLine(response.Content);
 
                 }
                 if (type == "AddTestRunFromTestFolder")
@@ -241,13 +241,13 @@ namespace Vansah
                     {
                         JsonArray array = new();
                         array.Add(AddAttachment(FileName()));
-                       
+
                         requestBody.Add("attachments", array);
-                       
-                       
+
+
                     }
-                    
-              //      Console.WriteLine(requestBody);
+
+                    //      Console.WriteLine(requestBody);
                     httpClient.BaseAddress = new Uri(Add_TEST_LOG);
 
 
@@ -274,7 +274,7 @@ namespace Vansah
 
                         requestBody.Add("attachments", array);
                     }
-                    
+
                     Console.WriteLine(requestBody);
                     httpClient.BaseAddress = new Uri(Add_TEST_RUN);
 
@@ -301,7 +301,7 @@ namespace Vansah
 
                         requestBody.Add("attachments", array);
                     }
-                  
+
 
 
                     Console.WriteLine(requestBody);
@@ -316,7 +316,7 @@ namespace Vansah
                 if (type == "RemoveTestRun")
                 {
                     //Console.WriteLine(requestBody);
-                    httpClient.BaseAddress = new Uri(REMOVE_TEST_RUN + TEST_RUN_IDENTIFIER);                
+                    httpClient.BaseAddress = new Uri(REMOVE_TEST_RUN + TEST_RUN_IDENTIFIER);
                     response = httpClient.DeleteAsync("").Result;
                 }
 
@@ -332,7 +332,7 @@ namespace Vansah
                 if (type == "UpdateTestLog")
                 {
                     requestBody = new();
-                
+
                     requestBody.Add("result", resultObj(RESULT_KEY));
                     requestBody.Add("actualResult", COMMENT);
                     if (SEND_SCREENSHOT)
@@ -344,7 +344,7 @@ namespace Vansah
                     }
                     //Console.WriteLine(requestBody);
                     httpClient.BaseAddress = new Uri(UPDATE_TEST_LOG + TEST_LOG_IDENTIFIER);
-                     Content = new StringContent(requestBody.ToJsonString(), Encoding.UTF8, "application/json" /* or "application/json" in older versions */);
+                    Content = new StringContent(requestBody.ToJsonString(), Encoding.UTF8, "application/json" /* or "application/json" in older versions */);
                     response = httpClient.PutAsync("", Content).Result;
                 }
 
@@ -362,7 +362,7 @@ namespace Vansah
                         Console.WriteLine($"Test Run has been created Successfully RUN ID : {TEST_RUN_IDENTIFIER}");
 
                     }
-                    if (type == "AddTestRunFromTestFolder") 
+                    if (type == "AddTestRunFromTestFolder")
                     {
                         TEST_RUN_IDENTIFIER = obj.SelectToken("data.run.identifier").ToString();
                         Console.WriteLine($"Test Run has been created Successfully RUN ID : {TEST_RUN_IDENTIFIER}");
@@ -391,9 +391,10 @@ namespace Vansah
                     {
                         Console.WriteLine($"Test Log has been removed from a test Step Successfully LOG ID : {TEST_LOG_IDENTIFIER}");
                     }
-                    if (type == "RemoveTestRun") {
+                    if (type == "RemoveTestRun")
+                    {
                         Console.WriteLine($"Test Run has been removed Successfully for the testCase : {CASE_KEY} RUN ID : {TEST_RUN_IDENTIFIER}");
-                    
+
                     }
                     response.Dispose();
 
@@ -402,16 +403,17 @@ namespace Vansah
                 {
                     var responseMessage = response.Content.ReadAsStringAsync().Result;
                     var obj = JObject.Parse(responseMessage);
-                   // Console.WriteLine(obj);
+                    // Console.WriteLine(obj);
                     Console.WriteLine(obj.SelectToken("message").ToString());
                     response.Dispose();
                 }
 
             }
-            else {
+            else
+            {
                 Console.WriteLine("Sending Test Results to Vansah TM for JIRA is Disabled");
             }
-            }
+        }
         //Setter and Getter's 
         //To Set the TestFolderID 
         public void SetTESTFOLDERS_ID(string tESTFOLDERS_ID)
@@ -596,7 +598,8 @@ namespace Vansah
         }
 
         //Set FileName
-        private string FileName() {
+        private string FileName()
+        {
 
             string filename = Path.GetRandomFileName().Replace(".", "");
 
