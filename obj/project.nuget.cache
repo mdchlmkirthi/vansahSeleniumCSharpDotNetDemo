@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "wXlnPo9XfwRzPALShLQnfpP1HvQkEFTf0uKUJhcLlNx6E0xQwJ1lT5mT3Rm1xeTo+aHw3MnL6s8VO5/Drjw5Xw==",
+  "dgSpecHash": "4gl9iJGGg7ltylNHlP/JxlkqCdo/3SGYfIPJ0sqzjF6/LeuG3vkaeW9UjSIj4Mn5yC4mUMXSuFpeiONNkaGZrw==",
   "success": true,
-  "projectFilePath": "D:\\VSCode\\VansahSeleniumCSharpDemo\\VansahSeleniumCSharpDemo.csproj",
+  "projectFilePath": "D:\\VSCode\\VansahSeleniumCSharpDotNetDemo\\VansahSeleniumCSharpDemo.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Shubham.Mourya\\.nuget\\packages\\coverlet.collector\\3.1.2\\coverlet.collector.3.1.2.nupkg.sha512",
     "C:\\Users\\Shubham.Mourya\\.nuget\\packages\\microsoft.codecoverage\\17.1.0\\microsoft.codecoverage.17.1.0.nupkg.sha512",

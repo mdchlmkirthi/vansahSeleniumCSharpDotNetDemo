@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\VSCode\\VansahSeleniumCSharpDemo\\VansahSeleniumCSharpDemo.csproj": {}
+    "D:\\VSCode\\VansahSeleniumCSharpDotNetDemo\\VansahSeleniumCSharpDemo.csproj": {}
   },
   "projects": {
-    "D:\\VSCode\\VansahSeleniumCSharpDemo\\VansahSeleniumCSharpDemo.csproj": {
+    "D:\\VSCode\\VansahSeleniumCSharpDotNetDemo\\VansahSeleniumCSharpDemo.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\VSCode\\VansahSeleniumCSharpDemo\\VansahSeleniumCSharpDemo.csproj",
+        "projectUniqueName": "D:\\VSCode\\VansahSeleniumCSharpDotNetDemo\\VansahSeleniumCSharpDemo.csproj",
         "projectName": "VansahSeleniumCSharpDemo",
-        "projectPath": "D:\\VSCode\\VansahSeleniumCSharpDemo\\VansahSeleniumCSharpDemo.csproj",
+        "projectPath": "D:\\VSCode\\VansahSeleniumCSharpDotNetDemo\\VansahSeleniumCSharpDemo.csproj",
         "packagesPath": "C:\\Users\\Shubham.Mourya\\.nuget\\packages\\",
-        "outputPath": "D:\\VSCode\\VansahSeleniumCSharpDemo\\obj\\",
+        "outputPath": "D:\\VSCode\\VansahSeleniumCSharpDotNetDemo\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Shubham.Mourya\\AppData\\Roaming\\NuGet\\NuGet.Config",
