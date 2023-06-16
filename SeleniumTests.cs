@@ -55,7 +55,7 @@ namespace VansahSeleniumCSharpDemo
         public void Test1() //Running Test Case for an Issue
         {
             //Instance of ChromeDriver
-            driver = new ChromeDriver(System.IO.Directory.GetCurrentDirectory() + "\\bin\\Debug\\net6.0");
+            driver = new ChromeDriver(System.IO.Directory.GetCurrentDirectory());
 
             //Test Case started 
             //Creating Test Run Identifer and Running Test Case for an Issue
@@ -122,7 +122,7 @@ namespace VansahSeleniumCSharpDemo
         public void Test2() //Running Test Case for TestFolder
         {   
             //Instance of ChromeDriver
-            driver = new ChromeDriver(System.IO.Directory.GetCurrentDirectory() + "\\bin\\Debug\\net6.0");
+            driver = new ChromeDriver(System.IO.Directory.GetCurrentDirectory());
 
             //Test Case started 
             //Creating Test Run Identifer and Running Test Case for an TestFolder
