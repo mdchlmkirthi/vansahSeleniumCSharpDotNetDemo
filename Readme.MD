@@ -7,7 +7,7 @@
 </h1>
 <p align="center">
    Vansah's API can be used to integrate Vansah with various tools, automation and development frameworks including third-party applications.
-   This example is based on C# .NET framework. A simple test to load https://vansah.com and send results to your Jira instance when using Vansah TM app.
+   This example is based on C# .NET framework. A simple test to load https://selenium.vansah.io and send results to your Jira instance when using Vansah TM app.
 </p>
 <br />
 
@@ -29,7 +29,7 @@ Vansah current node api's expects vansahConnectToken as Authentication that can 
 
 ## Vansah C# API-Binding to a Selenium project is required
 
-Download Vansah API-Binding for C# here: https://github.com/testpointcorp/Vansah-API-Binding-dotnet
+Download Vansah API-Binding for C# here: https://github.com/testpointcorp/vansahSeleniumCSharpDotNetDemo
 
 For questions, suggestions, or other requests, please reach out to us through our support channels:
 https://community.vansah.com/ to raise a ticket: https://vansahapp.atlassian.net/servicedesk/customer/portals
