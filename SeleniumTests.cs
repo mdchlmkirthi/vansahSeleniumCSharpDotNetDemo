@@ -1,5 +1,6 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using System;
 using Vansah;
 
 namespace VansahSeleniumCSharpDemo
@@ -7,201 +8,141 @@ namespace VansahSeleniumCSharpDemo
 
     public class Tests
     {
-        //Required
-        public IWebDriver driver;  // Required if screenshot is needed
 
-        //Required
+        //******************************************* Required ********************************************************************//
+        public IWebDriver driver;
         private VansahNode testExecute;
+        private static string testCase;
+        private string issueKey;
 
-        //Optional if IssueKey is provided
-        private string testFolderID = "b97fe80b-0b6a-11ee-8e52-5658ef8eadd5"; //TestFolder ID to which test Execution is to be perform
+        //******************************************* Test Properties - Optional **************************************************//
+        private string sprintName;
+        private string releaseName;
+        private string environment;
 
-        //Optional if TestFolder ID is provided
-        private string issueKey = "Test-1"; //IssueKey to which test Execution is to be perform
-
-        //Optional 
-        private string sprintName = "TEST Sprint 1"; //Sprint Name for current sprint for which test execution is to be perform
-
-        //Optional
-        //private string releaseName = "v1"; //Release Name linked with the current sprint and to the test case.
-
-        //Optional
-        private string environment = "UAT"; //Environment Name to which test execution of a test case is to be perform
-
-        //Required
-        private static string testCase = "Test-C1";
+   
 
         [SetUp]
         public void Setup()
         {
-            
-            //Create Instance
+
+            //******************************* Create Instance for VansahNode *******************************************************//
             testExecute = new VansahNode();
 
-            //Provide your JIRA Issue Key
+        }
+
+        [Test]
+        //***************************** Adding Quick Test for a TestCase From an Issue  *********************************************//
+        public void VAN_C15() 
+        {
+
+            //*********************************  Assigning Values to Variables ********************************************************//
+            testCase     = "VAN-C15";
+            issueKey     = "VAN-5";
+            environment  = "UAT";
+
+            //*********************************** Setting Asset & Test Properties **************************************************//
             testExecute.SetJira_Issue_Key(issueKey);
-
-            //Provide your TestFolder ID
-            testExecute.SetTestFolders_Id(testFolderID);
-
-            //Set Environment Test Property
             testExecute.SetEnvironment_Name(environment);
 
-            //Set Sprint Name
-            testExecute.SetSprint_Name(sprintName);
+            //********************************** Function For Add Quick Test From Jira Issue **************************************//
+            testExecute.AddQuickTestFromJiraIssue(testCase, "failed");
+
+        }
+
+
+        [Test]
+        //***************************** Adding Quick Test for a TestCase From an Issue and Remove Test run  ***********************//
+        public void VAN_C17() 
+        {
+            //********************************* Assigning Values to Variables *****************************************************//
+            testCase     = "VAN-C17";
+            issueKey     = "VAN-5";
+            environment  = "UAT";
+
+            //*********************************** Setting Asset & Test Properties ************************************************//
+            testExecute.SetJira_Issue_Key(issueKey);
+            testExecute.SetEnvironment_Name(environment);
+
+            //********************************** Function To Add Quick Test From Jira Issue **************************************//
+            testExecute.AddQuickTestFromJiraIssue(testCase, "passed");
+
+            //********************************** Function To Remove Current Test Run *********************************************//
+            testExecute.RemoveTestRun();
+
         }
 
         [Test]
-        public void Test1() //Running Test Case for an Issue
+        //***************************** Sample TestCase - Validating Selenium Vansah Webpage  *************************************//
+        //***************************** Adding TestRun, Adding TestLog, Update TestLog  *******************************************//
+        public void VAN_C23() 
         {
-            //Instance of ChromeDriver
+
+            //*************************** Creating Instance for ChromeDriver ******************************************************//
             driver = new ChromeDriver(System.IO.Directory.GetCurrentDirectory());
 
-            //Test Case started 
-            //Creating Test Run Identifer and Running Test Case for an Issue
+            //********************************* Assigning Values to Variables ******************************************************//
+            testCase    = "VAN-C23";
+            issueKey    = "VAN-5";
+            environment = "UAT";
+
+            //*********************************** Setting Asset & Test Properties *************************************************//
+            testExecute.SetJira_Issue_Key(issueKey);
+            testExecute.SetEnvironment_Name(environment);
+
+            //**************************Function For Adding Test run from Jira Issue *********************************************//
             testExecute.AddTestRunFromJiraIssue(testCase);
 
-            //System.out.println("Test Steps Count " + testExecute.testStepCount(testCase));
+            //************************* Test Case Started, Validating Selenium Vansah Webpage ***********************************//
             driver.Url = "https://selenium.vansah.io/";
             driver.Manage().Window.Maximize();
 
 
-            //System.out.print(Screenshot.TRUE.takeScreenshot);
-
-            //testExecute test step #1 , User should be able to open the vansah.com
-
+            //*********************Test step #1, Check whether User able to open the vansah.com ********************************//
+            //************************************ Function to Add Test Log  ***************************************************//
             if (driver.Url.Equals("https://selenium.vansah.io/"))
             {
-
-                //n/a, failed, passed, untested
-                //Add logs for each step function(ResultID, AcutalResultComment, TestStepID, screenshotTrueorFalse, chromedriver/OtherBroswerdriver);
+                //ResultName - n/a, failed, passed, untested
+                //Add logs for each step function(ResultName, AcutalResultComment, TestStepID, screenshotTrueorFalse, chromedriver/OtherBroswerdriver);
                 testExecute.AddTestLog("passed", "As expected, Url is opened", 1, true, driver);
-
 
             }
             else
             {
-
-                //n/a, failed, passed, untested
-                //Add logs for each step function(ResultID, AcutalResultComment, TestStepID, screenshotTrueorFalse, chromedriver/OtherBroswerdriver);
+                //ResultName - n/a, failed, passed, untested
+                //Add logs for each step function(ResultName, AcutalResultComment, TestStepID, screenshotTrueorFalse, chromedriver/OtherBroswerdriver);
                 testExecute.AddTestLog("failed", "URL not Found", 1, true, driver);
 
             }
 
 
-            //Clicking on TRY NOW button
+            //**************************** Clicking on TRY NOW button ***************************************************************//
             IWebElement element = driver.FindElement(By.XPath("//*[text()='Try Now']"));
             element.Click();
 
 
-            //testExecute test step #2 , URL of MarketPlace"
-
-            if (driver.Url.Equals("https://marketplace.atlassian.com/apps/1224250/vansah-test-management-for-jira?tab=overview&hosting=cloud/"))
+            //************************* Test step #2 , Validating URL of MarketPlace ***********************************************//
+            if (driver.Url.Equals("https://marketplace.atlassian.com/apps/1224250/vansah-test-management-for-jira?tab=overview&hosting=cloud"))
             {
-
-                //n/a, failed, passed, untested
-                //Add logs for each step function(ResultID, AcutalResultComment, TestStepID, screenshotTrueorFalse, chromedriver/OtherBroswerdriver);
-                testExecute.AddTestLog("PASSED", "As expected, url is matched", 2, true, driver);
-
-
+                //ResultName - n/a, failed, passed, untested
+                //Add logs for each step function(ResultName, AcutalResultComment, TestStepID, screenshotTrueorFalse, chromedriver/OtherBroswerdriver);
+                testExecute.AddTestLog("passed", "As expected, url is matched", 2, true, driver);
             }
             else
             {
-
-                //n/a, failed, passed, untested
-                //Add logs for each step function(ResultID, AcutalResultComment, TestStepID, screenshotTrueorFalse, chromedriver/OtherBroswerdriver);
-                testExecute.AddTestLog("FAILED", "Url is not matched", 2, true, driver);
+                //ResultName - n/a, failed, passed, untested
+                //Add logs for each step function(ResultName, AcutalResultComment, TestStepID, screenshotTrueorFalse, chromedriver/OtherBroswerdriver);
+                testExecute.AddTestLog("failed", "Url is not matched", 2, true, driver);
 
             }
-            //testExecute.RemoveTestLog();
-            //testExecute.RemoveTestRun();
-            driver.Quit();
+
+            //************************** Function to Update Current/Last Test Log ************************************************//
+             testExecute.UpdateTestLog("N/A", "Step Not in Scope", false, driver);
+           
+            //**************************** Terminating the driver instance ********************************************************//
+             driver.Quit();
 
         }
-        [Test]
-        public void Test2() //Running Test Case for TestFolder
-        {   
-            //Instance of ChromeDriver
-            driver = new ChromeDriver(System.IO.Directory.GetCurrentDirectory());
 
-            //Test Case started 
-            //Creating Test Run Identifer and Running Test Case for an TestFolder
-            testExecute.AddTestRunFromTestFolder(testCase);
-
-            //System.out.println("Test Steps Count " + testExecute.testStepCount(testCase));
-            driver.Url = "https://selenium.vansah.io/";
-            driver.Manage().Window.Maximize();
-
-
-            //System.out.print(Screenshot.TRUE.takeScreenshot);
-
-            //testExecute test step #1 , User should be able to open the vansah.com
-
-            if (driver.Url.Equals("https://selenium.vansah.io/"))
-            {
-
-                //n/a, failed, passed, untested
-                //Add logs for each step function(ResultID, AcutalResultComment, TestStepID, screenshotTrueorFalse, chromedriver/OtherBroswerdriver);
-                testExecute.AddTestLog("passed", "As expected, Url is opened", 1, true, driver);
-
-
-            }
-            else
-            {
-
-                //n/a, failed, passed, untested
-                //Add logs for each step function(ResultID, AcutalResultComment, TestStepID, screenshotTrueorFalse, chromedriver/OtherBroswerdriver);
-                testExecute.AddTestLog("failed", "URL not Found", 1, true, driver);
-
-            }
-
-
-            //Clicking on TRY NOW button
-            IWebElement element = driver.FindElement(By.XPath("//*[text()='Try Now']"));
-            element.Click();
-
-
-            //testExecute test step #2 , URL of MarketPlace"
-
-            if (driver.Url.Equals("https://marketplace.atlassian.com/apps/1224250/vansah-test-management-for-jira?tab=overview&hosting=cloud/"))
-            {
-
-                //n/a, failed, passed, untested
-                //Add logs for each step function(ResultID, AcutalResultComment, TestStepID, screenshotTrueorFalse, chromedriver/OtherBroswerdriver);
-                testExecute.AddTestLog("PASSED", "As expected, url is matched", 2, true, driver);
-
-
-            }
-            else
-            {
-
-                //n/a, failed, passed, untested
-                //Add logs for each step function(ResultID, AcutalResultComment, TestStepID, screenshotTrueorFalse, chromedriver/OtherBroswerdriver);
-                testExecute.AddTestLog("FAILED", "Url is not matched", 2, true, driver);
-
-            }
-            //testExecute.RemoveTestLog();
-            //testExecute.RemoveTestRun();
-            driver.Quit();
-
-        }
-        [Test]
-        public void Test3() //Adding Quick Test for a TestCase From an Issue
-        {
-
-            testExecute.AddQuickTestFromJiraIssue(testCase, "n/a");
-
-
-
-        }
-        [Test]
-        public void Test4() //Adding Quick Test for a TestCase From a TestFolder
-        {
-
-            testExecute.AddQuickTestFromTestFolders(testCase, "untested");
-
-
-
-        }
     }
     }
