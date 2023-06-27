@@ -378,6 +378,10 @@ namespace Vansah
                         Console.WriteLine($"Test Run has been removed Successfully for the testCase : {case_Key} RUN ID : {test_Run_Identifier}");
 
                     }
+                     if (type == "UpdateTestLog")
+                    {
+                        Console.WriteLine($"Test Log has been updated Successfully LOG ID : {test_Log_Identifier}");
+                    }
                     response.Dispose();
 
                 }
